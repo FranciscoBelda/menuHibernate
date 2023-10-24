@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="hibernate.Profesor.Profesor" table="profesor">
+        <id name="id" column="id" type="int"/>
+        <property name="nombre" column="nombre"/>
+        <property name="apellido1" column="apellido1"/>
+        <property name="apellido2" column="apellido2"/>
+
+        <one-to-one name="direccion" cascade="all"/>
+
+        <set name="asignaturas" cascade="all" inverse="true">
+            <key>
+                <column name="idProfesor"/>
+            </key>
+            <one-to-many class="hibernate.Asignatura.Asignatura"/>
+        </set>
+
+        <list name="correoElectronicos" cascade="all" inverse="true">
+            <key>
+                <column name="idProfesor"/>
+            </key>
+            <list-index>
+                <column name="idx"/>
+            </list-index>
+            <one-to-many
+                    class="hibernate.CorreoElectronico.CorreoElectronico"/>
+        </list>
+    </class>
+</hibernate-mapping>
